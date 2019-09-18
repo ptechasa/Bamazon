@@ -1,6 +1,7 @@
 exports.data = {
-    host: process.env.localhost,
-    user: process.env.root,
-    password: process.env.password,
-    database: process.env.bamazon.sql
+    host: process.env.LOCAL_HOST_NAME,
+    user: process.env.USER,
+    password: process.env.PASSWORD,
+    database: process.env.DATABASE
   };
+
