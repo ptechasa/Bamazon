@@ -13,13 +13,13 @@ PRIMARY KEY(item_id)
 );
 
 INSERT INTO products (item_id, product_name, department_name, price, stock_quantity) VALUES
-('1001', 'UGG', 'Shoes', '119.95', '10'),
-('2002', 'Levis Premium Skinny', 'Clothing', '98', '5'),
-('3003', 'MICHAEL KORS', 'Bags & Handbags', '171', '10'),
-('4004', 'Earring', 'Accessories', '12.95', '15'),
-('5005', 'Kate Spade New York', 'Watches', '195', '10'),
+('1001', 'UGG', 'Shoes', '119.95', '30'),
+('2002', 'Levis Premium Skinny', 'Clothing', '98', '20'),
+('3003', 'MICHAEL KORS', 'Bags & Handbags', '171', '30'),
+('4004', 'Earring', 'Accessories', '12.95', '60'),
+('5005', 'Kate Spade New York', 'Watches', '195', '25'),
 ('6006', 'PRADA', 'Sunglasses', '295.99', '6'),
 ('7007', 'NIKE Zoom Vapor Cage 3', 'New Releases', '199.99', '10'),
-('8001', 'NIKE Kids Air MAx', 'Performance', '70', '8'),
-('9009', 'Columbia Jacket', 'Outdoor', '299', '5'),
-('1111', 'Bamazon Gift CArds', 'Gift Cards', '100', '20');
+('8001', 'NIKE Kids Air MAx', 'Performance', '70', '30'),
+('9009', 'Columbia Jacket', 'Outdoor', '299', '100'),
+('1111', 'Bamazon Gift CArds', 'Gift Cards', '100', '100');
