@@ -107,7 +107,7 @@ function askQty(num) {
                     console.log('---Thank you for shopping at Bamazon ---')
                     console.log('\n');
 
-                    //Updating the products' order in Inventory
+                    //Updating the products' quantity in Inventory
                     var updateQty = results[0].stock_quantity - qty
                     updateInventory(updateQty, results[0].item_id);
 
