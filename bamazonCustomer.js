@@ -121,7 +121,7 @@ function askQty(num) {
 
 function updateInventory(num, cid) {
 
-    //Display updates product quantity
+    //Display updated of products' quantity
     connection.query('UPDATE products SET stock_quantity = ? WHERE item_id = ?', [num, cid], function (error, results) {
         if (error) throw error;
         console.table(results);
