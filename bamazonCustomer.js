@@ -19,6 +19,8 @@ var connection = mysql.createConnection({
 connection.connect();
 
 function viewProducts() {
+
+    //Display all of data from products table in SQL
     connection.query('SELECT item_id AS ID, product_name AS Product, department_name AS Department, price AS Price, stock_quantity AS Quantity FROM products', function (error, results, fields) {
         if (error) throw error;
         console.table(results);
@@ -53,7 +55,7 @@ function askProductId() {
                 askQty(numID);
 
             } else {
-                console.log('Please input correct Product ID, try again!!')
+                console.log('Please input correct Product ID, try again!!');
                 askProductId();
             }
         });
@@ -69,7 +71,7 @@ function askQty(num) {
             }
         ])
         .then(answers => {
-            var qty = parseInt(answers.qty)
+            var qty = parseInt(answers.qty);
 
             //using ? to avoid a SQL injection attack
             connection.query('SELECT * FROM products WHERE item_id = ?', [num], function (error, results, fields) {
@@ -77,39 +79,50 @@ function askQty(num) {
                 if (error) throw error;
 
                 var dbQty = results[0].stock_quantity;
-                var priceNum = parseInt(results[0].price)
+                var priceNum = parseFloat(results[0].price);
 
                 if (qty > dbQty) {
-                    console.log('----------------------------')
-                    console.log('Insufficient quantity!')
+                    console.log('----------------------------');
+                    console.log('Insufficient quantity!');
 
                     //if insufficient quantity, it will show the product_name and stock_quantity that you have in stock
                     connection.query('SELECT product_name AS Product, stock_quantity AS Quantity FROM products WHERE item_id = ?', [num], function (error, results, fields) {
                         console.table(results);
-                        console.log(`Total stock that we have: ${dbQty}`)
+                        console.log(`Total stock that we have: ${dbQty}`);
+                        console.log('---------------------------------------')
                         askProductId();
                     })
 
                 } else {
-                    var totalPrice = qty * priceNum
+
+                    //Calculating total price from quantity
+                    var totalPrice = priceNum * qty;
+                    console.log('\n');
                     console.log('----------------------------')
                     console.log(`${qty} items have been ordered.`)
                     console.log(`${results[0].product_name} at $${results[0].price}`)
                     console.log('----------------------------')
-                    console.log(`Total amount: $${totalPrice}`)
+                    console.log(`Total amount: $ ${totalPrice}`)
                     console.log('============================')
-                    // console.log('---Thank you for shopping at Bamazon ---')
-                    askProductId();
-                }
-                // console.log(results[0].stock_quantity);
+                    console.log('---Thank you for shopping at Bamazon ---')
+                    console.log('\n');
 
+                    //Updating the products' order in Inventory
+                    var updateQty = results[0].stock_quantity - qty
+                    updateInventory(updateQty, results[0].item_id);
+
+                    viewProducts();
+                }
 
             });
         });
+
 }
 
-function updateInventory(num) {
-    connection.query('UPDATE products SET stock_quantity = ? WHERE item_id = ?', [num], function (error, results, fields) {
+function updateInventory(num, cid) {
+
+    //Display updates product quantity
+    connection.query('UPDATE products SET stock_quantity = ? WHERE item_id = ?', [num, cid], function (error, results) {
         if (error) throw error;
         console.table(results);
     });
