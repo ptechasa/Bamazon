@@ -3,7 +3,7 @@ var mysql = require('mysql');
 // Load the NPM Package inquirer
 var inquirer = require("inquirer");
 
-const keys = require('./keys.js');
+var keys = require('./keys.js');
 
 //dotenv package is hide the credential
 require('dotenv').config()
@@ -81,7 +81,8 @@ function askQty(num) {
                 var dbQty = results[0].stock_quantity;
                 var priceNum = parseFloat(results[0].price);
 
-                if (qty > dbQty) {
+                //If quantity is greater than the quantity in Database or it's not true
+                if (qty > dbQty || !answers.qty)  {
                     console.log('----------------------------');
                     console.log('Insufficient quantity!');
 
